@@ -35,8 +35,10 @@ def get_landmark(filepath, predictor):
 	:return: np.array shape=(68, 2)
 	"""
     detector = dlib.get_frontal_face_detector()
-
-    img = dlib.load_rgb_image(filepath)
+    try:
+        img = dlib.load_rgb_image(filepath)
+    except Exception:
+        img = np.array(PIL.Image.open(filepath))
     dets = detector(img, 1)
 
     shape = None
